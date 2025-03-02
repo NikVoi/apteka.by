@@ -1,12 +1,14 @@
-import { FC } from 'react'
-import styles from './catalog.module.scss'
+import ProductsList from '@/entities/medical/ui/productsList'
+import FiltersAside from '@/features/filters/filtersAside'
 
-interface Props {
-	className?: string
-}
+const Catalog = () => {
+	return (
+		<section className='flex justify-between'>
+			<FiltersAside />
 
-const Catalog: FC<Props> = ({ className }) => {
-	return <section className={styles.catalog}>catalog</section>
+			<ProductsList />
+		</section>
+	)
 }
 
 export default Catalog

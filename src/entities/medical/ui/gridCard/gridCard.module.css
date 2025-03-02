@@ -1,0 +1,7 @@
+.gridCard {
+	@apply flex flex-col w-1/3;
+}
+
+.description {
+	@apply w-[215px];
+}
