@@ -1,16 +1,20 @@
 'use client'
 
-import { useMedStore } from '@/entities/medical/medStore'
+import { useMedStore } from '@/entities/medical/useMedStore'
+import { MAX_PRICE, MIN_PRICE } from '@/shared/constants/base'
 import {
 	brand,
 	dossage,
 	quantityPerPackage,
 	releaseForm,
 } from '@/shared/constants/filters'
-import { Checkbox } from '@/shared/ui/checkbox'
+import useToggle from '@/shared/lib/useToggle'
+import { Button } from '@/shared/ui/button'
+import { Input } from '@/shared/ui/input'
 import { Slider } from '@/shared/ui/slider'
+import { ChevronDownIcon, ChevronLeftIcon, ChevronUpIcon } from 'lucide-react'
 import { FC, useState } from 'react'
-import styles from './styles.module.css'
+import FilterCategory from './FilterCategory'
 
 const FiltersAside: FC = () => {
 	const { filters, setFilters } = useMedStore()
@@ -18,135 +22,133 @@ const FiltersAside: FC = () => {
 		filters.minPrice,
 		filters.maxPrice,
 	])
+	const { isOpen, toggle } = useToggle(true)
 
 	const handlePriceCommit = (newRange: number[]) => {
 		setFilters({ minPrice: newRange[0], maxPrice: newRange[1] })
 	}
 
-	// Обновление фильтра цены
 	const handlePriceChange = (newRange: number[]) => {
 		setTempRange(newRange)
 		setFilters({ minPrice: newRange[0], maxPrice: newRange[1] })
 	}
 
-	console.log(filters)
-
-	const handleCheckboxChange = (
-		key:
-			| 'selectedBrands'
-			| 'selectedForms'
-			| 'selectedDossage'
-			| 'selectedQuantityPerPackage',
-		value: string | Number
-	) => {
-		const stringValue = String(value)
-
-		setFilters({
-			[key]: filters[key].includes(stringValue)
-				? filters[key].filter(item => item !== stringValue)
-				: [...filters[key], stringValue],
-		})
-	}
-
 	return (
-		<aside className={styles.aside}>
-			<h2 className={styles.title}>Фильтры</h2>
-
-			<div className={styles.filterBlock}>
-				<h3>Цена</h3>
-				<p className='text-sm font-medium text-gray-700'>
-					{tempRange[0]} - {tempRange[1]} ₽
-				</p>
-				<Slider
-					value={tempRange}
-					onValueChange={handlePriceChange}
-					onValueCommit={handlePriceCommit}
-					min={0}
-					max={100}
-					step={1}
-				/>
+		<aside className='w-[270px] h-full bg-white rounded-xl mr-5'>
+			<div className='flex justify-center p-2 my-4'>
+				<Button variant='secondary'>
+					<ChevronLeftIcon /> Антибактериальные средства
+				</Button>
 			</div>
 
-			<hr />
+			<hr className='text-gray-200' />
 
-			<div className={styles.filterBlock}>
-				<h3>Бренд</h3>
-				{brand.map(b => (
-					<div key={b} className={styles.checkboxItem}>
-						<Checkbox
-							checked={filters.selectedBrands.includes(b)}
-							onCheckedChange={() => handleCheckboxChange('selectedBrands', b)}
+			<div className='m-4'>
+				<div
+					className='flex justify-between items-center cursor-pointer'
+					onClick={toggle}
+				>
+					<h3 className='font-bold '>Цена</h3>
+					{isOpen ? <ChevronUpIcon size={16} /> : <ChevronDownIcon size={16} />}
+				</div>
+
+				{isOpen && (
+					<>
+						<p className='text-sm font-medium text-gray-700 mb-4 flex items-center gap-2'>
+							<span>От</span>
+							<Input
+								type='number'
+								value={tempRange[0]}
+								min={MIN_PRICE}
+								max={tempRange[1]}
+								className='w-16 text-center'
+								onChange={e => {
+									const newMin = Number(e.target.value)
+									setTempRange([newMin, tempRange[1]])
+									setFilters({ minPrice: newMin, maxPrice: tempRange[1] })
+								}}
+							/>
+
+							<span>до</span>
+							<Input
+								type='number'
+								value={tempRange[1]}
+								min={tempRange[0]}
+								max={MAX_PRICE}
+								className='w-16 text-center'
+								onChange={e => {
+									const newMax = Number(e.target.value)
+									setTempRange([tempRange[0], newMax])
+									setFilters({ minPrice: tempRange[0], maxPrice: newMax })
+								}}
+							/>
+							<span>р.</span>
+						</p>
+
+						<Slider
+							value={tempRange}
+							onValueChange={handlePriceChange}
+							onValueCommit={handlePriceCommit}
+							min={MIN_PRICE}
+							max={MAX_PRICE}
+							step={0.01}
 						/>
-						<label>{b}</label>
-					</div>
-				))}
+					</>
+				)}
 			</div>
 
-			<hr />
+			<hr className='text-gray-200' />
 
-			<div className={styles.filterBlock}>
-				<h3>Форма выпуска</h3>
-				{releaseForm.map(form => (
-					<div key={form} className={styles.checkboxItem}>
-						<Checkbox
-							checked={filters.selectedForms.includes(form)}
-							onCheckedChange={() =>
-								handleCheckboxChange('selectedForms', form)
-							}
-						/>
-						<label>{form}</label>
-					</div>
-				))}
+			<FilterCategory
+				title='Бренд'
+				options={brand}
+				filterKey='selectedBrands'
+			/>
+
+			<hr className='text-gray-200' />
+
+			<FilterCategory
+				title='Форма выпуска'
+				options={releaseForm}
+				filterKey='selectedForms'
+			/>
+
+			<hr className='text-gray-200' />
+
+			<FilterCategory
+				title='Дозировка'
+				options={dossage}
+				filterKey='selectedDossage'
+			/>
+
+			<hr className='text-gray-200' />
+
+			<FilterCategory
+				title='Количество в упаковке'
+				options={quantityPerPackage}
+				filterKey='selectedQuantityPerPackage'
+				formatValue={q => `${q} шт`}
+			/>
+
+			<hr className='text-gray-200' />
+
+			<div className='m-4'>
+				<Button
+					variant='secondary'
+					onClick={() =>
+						setFilters({
+							selectedBrands: [],
+							selectedForms: [],
+							selectedDossage: [],
+							selectedQuantityPerPackage: [],
+							minPrice: MIN_PRICE,
+							maxPrice: MAX_PRICE,
+						})
+					}
+				>
+					Сбросить фильтры
+				</Button>
 			</div>
-
-			<hr />
-
-			<div className={styles.filterBlock}>
-				<h3>Дозировка</h3>
-				{dossage.map(d => (
-					<div key={d} className={styles.checkboxItem}>
-						<Checkbox
-							checked={filters.selectedDossage.includes(d)}
-							onCheckedChange={() => handleCheckboxChange('selectedDossage', d)}
-						/>
-						<label>{d}</label>
-					</div>
-				))}
-			</div>
-
-			<hr />
-
-			<div className={styles.filterBlock}>
-				<h3>Количество в упаковке</h3>
-				{quantityPerPackage.map(q => (
-					<div key={q} className={styles.checkboxItem}>
-						<Checkbox
-							checked={filters.selectedQuantityPerPackage.includes(q)}
-							onCheckedChange={() =>
-								handleCheckboxChange('selectedQuantityPerPackage', q)
-							}
-						/>
-						<label>{q + ' шт'}</label>
-					</div>
-				))}
-			</div>
-
-			<hr />
-
-			<button
-				className={styles.resetButton}
-				onClick={() =>
-					setFilters({
-						selectedBrands: [],
-						selectedForms: [],
-						selectedDossage: [],
-						minPrice: 0,
-						maxPrice: 1000,
-					})
-				}
-			>
-				Сбросить фильтры
-			</button>
 		</aside>
 	)
 }

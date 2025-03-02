@@ -1,11 +1,7 @@
-import { IProduct } from '@/shared/types/IProduct'
+import { MAX_PRICE, MIN_PRICE } from '@/shared/constants/base'
 import axios from 'axios'
 import { create } from 'zustand'
 import { MedStore } from './types'
-
-interface TestProps {
-	product: IProduct
-}
 
 export const useMedStore = create<MedStore>((set, get) => ({
 	allProducts: [],
@@ -13,8 +9,8 @@ export const useMedStore = create<MedStore>((set, get) => ({
 	isLoading: false,
 	viewMode: 'grid',
 	filters: {
-		minPrice: 10,
-		maxPrice: 1000,
+		minPrice: MIN_PRICE,
+		maxPrice: MAX_PRICE,
 		selectedBrands: [],
 		selectedForms: [],
 		selectedDossage: [],
@@ -28,10 +24,12 @@ export const useMedStore = create<MedStore>((set, get) => ({
 	fetchProducts: async () => {
 		set({ isLoading: true })
 		try {
-			const response = await axios.get('http://localhost:9080/api/products')
+			const response = await axios.get(
+				`${process.env.NEXT_PUBLIC_API}/api/products`
+			)
 			set({ allProducts: response.data, products: response.data })
 		} catch (error) {
-			console.error('Ошибка загрузки товаров:', error)
+			set({ error: 'Ошибка загрузки товаров. Попробуйте позже.' })
 		} finally {
 			set({ isLoading: false })
 		}
@@ -82,6 +80,22 @@ export const useMedStore = create<MedStore>((set, get) => ({
 	},
 
 	setViewMode: mode => set({ viewMode: mode }),
+
+	setSorting: sortingType => {
+		set(state => {
+			let sortedProducts = [...state.products]
+
+			if (sortingType === 'asc') {
+				sortedProducts.sort((a, b) => a.price - b.price)
+			} else if (sortingType === 'desc') {
+				sortedProducts.sort((a, b) => b.price - a.price)
+			} else {
+				sortedProducts = [...state.allProducts]
+			}
+
+			return { products: sortedProducts }
+		})
+	},
 
 	setPage: newPage => {
 		set(state => ({

@@ -18,11 +18,13 @@ export interface MedStore {
 	allProducts: IProduct[]
 	products: IProduct[]
 	isLoading: boolean
+	error: string | null
 	viewMode: 'grid' | 'list'
 	filters: Filters
+	pagination: IPagination
 	fetchProducts: () => Promise<void>
 	setFilters: (filters: Partial<Filters>) => void
 	setViewMode: (mode: 'grid' | 'list') => void
 	setPage: (page: number) => void
-	pagination: IPagination
+	setSorting: (sortingType: 'relevance' | 'asc' | 'desc') => void
 }
