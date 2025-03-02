@@ -9,22 +9,16 @@ interface Filters {
 	selectedQuantityPerPackage: string[]
 }
 
-interface IPagination {
-	currentPage: number
-	itemsPerPage: number
-}
-
 export interface MedStore {
 	allProducts: IProduct[]
 	products: IProduct[]
 	isLoading: boolean
 	error: string | null
 	viewMode: 'grid' | 'list'
+	sorting: string
 	filters: Filters
-	pagination: IPagination
 	fetchProducts: () => Promise<void>
 	setFilters: (filters: Partial<Filters>) => void
 	setViewMode: (mode: 'grid' | 'list') => void
-	setPage: (page: number) => void
 	setSorting: (sortingType: 'relevance' | 'asc' | 'desc') => void
 }

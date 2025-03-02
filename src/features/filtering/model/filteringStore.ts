@@ -1,4 +1,4 @@
-import { useMedStore } from '@/entities/medical/useMedStore'
+import { useMedStore } from '@/entities/product/model/useMedStore'
 import { create } from 'zustand'
 import { ISortingState } from './types'
 

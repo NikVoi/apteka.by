@@ -1,4 +1,4 @@
-import { MAX_PRICE, MIN_PRICE } from '@/shared/constants/base'
+import { MAX_PRICE, MIN_PRICE } from '@/shared/config/base'
 import axios from 'axios'
 import { create } from 'zustand'
 import { MedStore } from './types'
@@ -8,6 +8,8 @@ export const useMedStore = create<MedStore>((set, get) => ({
 	products: [],
 	isLoading: false,
 	viewMode: 'grid',
+	sorting: 'relevance',
+	error: null,
 	filters: {
 		minPrice: MIN_PRICE,
 		maxPrice: MAX_PRICE,
@@ -15,10 +17,6 @@ export const useMedStore = create<MedStore>((set, get) => ({
 		selectedForms: [],
 		selectedDossage: [],
 		selectedQuantityPerPackage: [],
-	},
-	pagination: {
-		currentPage: 1,
-		itemsPerPage: 12,
 	},
 
 	fetchProducts: async () => {
@@ -89,17 +87,9 @@ export const useMedStore = create<MedStore>((set, get) => ({
 				sortedProducts.sort((a, b) => a.price - b.price)
 			} else if (sortingType === 'desc') {
 				sortedProducts.sort((a, b) => b.price - a.price)
-			} else {
-				sortedProducts = [...state.allProducts]
 			}
 
-			return { products: sortedProducts }
+			return { products: sortedProducts, sorting: sortingType }
 		})
-	},
-
-	setPage: newPage => {
-		set(state => ({
-			pagination: { ...state.pagination, currentPage: newPage },
-		}))
 	},
 }))

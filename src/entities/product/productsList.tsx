@@ -1,15 +1,15 @@
 'use client'
 
-import GridCard from '@/features/medicalCard/gridCard'
-import ListCard from '@/features/medicalCard/listCard'
-import PaginationControls from '@/features/pagination/PaginationControls'
-import { usePaginationStore } from '@/features/pagination/paginationStore'
+import GridCard from '@/features/productCard/gridCard'
+import ListCard from '@/features/productCard/listCard'
+import PaginationControls from '@/shared/ui/pagination/PaginationControls'
+import { usePaginationStore } from '@/shared/ui/pagination/paginationStore'
 import { useEffect } from 'react'
-import { useMedStore } from './useMedStore'
+import { useMedStore } from './model/useMedStore'
 
 const ProductsList = () => {
 	const { products, fetchProducts, isLoading, error, viewMode } = useMedStore()
-	const { currentPage, itemsPerPage, setPage } = usePaginationStore()
+	const { currentPage, itemsPerPage = 12, setPage } = usePaginationStore()
 
 	useEffect(() => {
 		fetchProducts()
@@ -22,11 +22,15 @@ const ProductsList = () => {
 	)
 
 	if (isLoading) {
-		return <p className='text-center text-gray-600 mt-4'>Загрузка товаров...</p>
+		return (
+			<p className='w-full text-center text-gray-600 mt-4'>
+				Загрузка товаров...
+			</p>
+		)
 	}
 
 	if (error) {
-		return <p className='text-center text-red-500 mt-4'>{error}</p>
+		return <p className='w-full text-center text-red-500 mt-4'>{error}</p>
 	}
 
 	return (

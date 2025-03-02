@@ -12,3 +12,14 @@ export interface ISortingState {
 	sorting: 'default' | 'asc' | 'desc'
 	setSorting: (type: 'default' | 'asc' | 'desc') => void
 }
+
+export interface IFilterCategoryProps {
+	title: string
+	options: (string | number)[]
+	filterKey:
+		| 'selectedBrands'
+		| 'selectedForms'
+		| 'selectedDossage'
+		| 'selectedQuantityPerPackage'
+	formatValue?: (value: string | number) => string
+}

@@ -1,15 +1,13 @@
-import ProductsList from '@/entities/medical/productsList'
-import FiltersAside from '@/features/filters/filtersAside'
-import FilterButtons from '@/features/filters/ui/filterButtons/filterButtons'
-import FilterItems from '@/features/filters/ui/filterItems/filterItems'
+import ProductsList from '@/entities/product/productsList'
+import FilterButtons from '@/features/filtering/ui/filterButtons'
+import FilterItems from '@/features/filtering/ui/filterItems'
+import FiltersAside from '@/features/filtering/ui/filtersAside'
 
 const Catalog = () => {
-	console.log(`${process.env.API}/api/products`)
-
 	return (
 		<section className='p-5 bg-[#f4f6fa] flex justify-center'>
 			<div className='w-[1250px]'>
-				<section className='flex justify-between  mb-5 w-full rounded-xl p-4'>
+				<section className='flex justify-between  mb-5 w-full rounded-xl '>
 					<FilterItems />
 					<FilterButtons />
 				</section>

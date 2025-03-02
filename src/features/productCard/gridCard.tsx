@@ -2,7 +2,7 @@ import { Button } from '@/shared/ui/button'
 import Image from 'next/image'
 import { FC } from 'react'
 import { CiHeart } from 'react-icons/ci'
-import { IItemProps } from './types'
+import { IItemProps } from './model/types'
 
 const GridCard: FC<IItemProps> = ({ product }) => {
 	return (

@@ -1,20 +1,11 @@
-import { useMedStore } from '@/entities/medical/useMedStore'
+import { useMedStore } from '@/entities/product/model/useMedStore'
 import useToggle from '@/shared/lib/useToggle'
 import { Checkbox } from '@/shared/ui/checkbox'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
+import { FC } from 'react'
+import { IFilterCategoryProps } from '../model/types'
 
-interface FilterCategoryProps {
-	title: string
-	options: (string | number)[]
-	filterKey:
-		| 'selectedBrands'
-		| 'selectedForms'
-		| 'selectedDossage'
-		| 'selectedQuantityPerPackage'
-	formatValue?: (value: string | number) => string
-}
-
-const FilterCategory: React.FC<FilterCategoryProps> = ({
+const FilterCategory: FC<IFilterCategoryProps> = ({
 	title,
 	options,
 	filterKey,
@@ -33,7 +24,7 @@ const FilterCategory: React.FC<FilterCategoryProps> = ({
 	}
 
 	return (
-		<div className='m-4'>
+		<div className='my-4 mx-2'>
 			<div
 				className='flex justify-between items-center cursor-pointer'
 				onClick={toggle}

@@ -7,12 +7,13 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from '@/shared/ui/pagination'
+import { FC } from 'react'
 import { generatePagination } from './paginationUtils'
-import { IPaginationControlsProps } from './types'
+import { IPaginationState } from './types'
 
-const PaginationControls: React.FC<IPaginationControlsProps> = ({
-	currentPage,
-	totalPages,
+const PaginationControls: FC<IPaginationState> = ({
+	currentPage = 1,
+	totalPages = 1,
 	setPage,
 }) => {
 	const pages = generatePagination(currentPage, totalPages)
