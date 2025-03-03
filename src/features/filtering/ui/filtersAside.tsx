@@ -58,6 +58,7 @@ const FiltersAside = () => {
 				title='Количество в упаковке'
 				options={QUANTITY_PER_PACKAGE}
 				filterKey='selectedQuantityPerPackage'
+				formatValue={value => `${value} шт`}
 			/>
 
 			<Button

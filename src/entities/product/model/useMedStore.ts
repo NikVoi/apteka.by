@@ -6,6 +6,7 @@ import { IMedStore } from './types'
 export const useMedStore = create<IMedStore>((set, get) => ({
 	allProducts: [],
 	products: [],
+	filteredProducts: [],
 	isLoading: false,
 	viewMode: 'grid',
 	sorting: 'relevance',
@@ -25,7 +26,11 @@ export const useMedStore = create<IMedStore>((set, get) => ({
 			const response = await axios.get(
 				`${process.env.NEXT_PUBLIC_API}/api/products`
 			)
-			set({ allProducts: response.data, products: response.data })
+			set({
+				allProducts: response.data,
+				products: response.data,
+				filteredProducts: response.data,
+			})
 		} catch (error) {
 			set({ error: 'Ошибка загрузки товаров. Попробуйте позже.' })
 		} finally {
@@ -73,7 +78,11 @@ export const useMedStore = create<IMedStore>((set, get) => ({
 				)
 			})
 
-			return { filters: updatedFilters, products: filteredProducts }
+			return {
+				filters: updatedFilters,
+				products: filteredProducts,
+				filteredProducts,
+			}
 		})
 	},
 
@@ -81,12 +90,14 @@ export const useMedStore = create<IMedStore>((set, get) => ({
 
 	setSorting: sortingType => {
 		set(state => {
-			let sortedProducts = [...state.products]
+			let sortedProducts = [...state.filteredProducts]
 
 			if (sortingType === 'asc') {
 				sortedProducts.sort((a, b) => a.price - b.price)
 			} else if (sortingType === 'desc') {
 				sortedProducts.sort((a, b) => b.price - a.price)
+			} else if (sortingType === 'relevance') {
+				sortedProducts = [...state.filteredProducts]
 			}
 
 			return { products: sortedProducts, sorting: sortingType }

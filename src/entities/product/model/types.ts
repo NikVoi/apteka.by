@@ -12,6 +12,7 @@ interface IFilters {
 export interface IMedStore {
 	allProducts: IProduct[]
 	products: IProduct[]
+	filteredProducts: IProduct[]
 	isLoading: boolean
 	error: string | null
 	viewMode: 'grid' | 'list'
