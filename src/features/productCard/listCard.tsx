@@ -6,7 +6,7 @@ import { IItemProps } from './model/types'
 
 const ListCard: FC<IItemProps> = ({ product }) => {
 	return (
-		<div className='w-full bg-white flex justify-between p-4 rounded-lg cursor-pointer hover:shadow-lg'>
+		<div className='w-full bg-white flex justify-between p-4 rounded-lg cursor-pointer hover:shadow-lg  duration-200'>
 			<Image src={product.image} alt='image' width={215} height={215} />
 
 			<div className=' flex-1 px-2 border-r border-solid border-gray-200'>

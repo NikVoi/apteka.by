@@ -1,9 +1,9 @@
 import { MAX_PRICE, MIN_PRICE } from '@/shared/config/base'
 import axios from 'axios'
 import { create } from 'zustand'
-import { MedStore } from './types'
+import { IMedStore } from './types'
 
-export const useMedStore = create<MedStore>((set, get) => ({
+export const useMedStore = create<IMedStore>((set, get) => ({
 	allProducts: [],
 	products: [],
 	isLoading: false,

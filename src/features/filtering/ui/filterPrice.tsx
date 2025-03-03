@@ -3,10 +3,11 @@
 import { useMedStore } from '@/entities/product/model/useMedStore'
 import { MAX_PRICE, MIN_PRICE } from '@/shared/config/base'
 import useToggle from '@/shared/lib/useToggle'
+import { cn } from '@/shared/lib/utils'
 import { Input } from '@/shared/ui/input'
 import { Slider } from '@/shared/ui/slider'
-import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { ChevronDownIcon } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
 
 const FilterPrice = () => {
 	const { filters, setFilters } = useMedStore()
@@ -15,6 +16,10 @@ const FilterPrice = () => {
 		filters.minPrice,
 		filters.maxPrice,
 	])
+
+	useEffect(() => {
+		setTempRange([filters.minPrice, filters.maxPrice])
+	}, [filters.minPrice, filters.maxPrice])
 
 	const handlePriceCommit = useCallback(
 		(newRange: number[]) => {
@@ -30,7 +35,13 @@ const FilterPrice = () => {
 				onClick={toggle}
 			>
 				<h3 className='font-bold'>Цена</h3>
-				{isOpen ? <ChevronUpIcon size={16} /> : <ChevronDownIcon size={16} />}
+				<ChevronDownIcon
+					size={16}
+					className={cn(
+						'transform transition-transform duration-200 ease-in-out',
+						{ 'rotate-180': isOpen }
+					)}
+				/>
 			</div>
 
 			{isOpen && (
@@ -44,9 +55,8 @@ const FilterPrice = () => {
 							onChange={e =>
 								setTempRange([Number(e.target.value), tempRange[1]])
 							}
-							className='w-16 text-center border-none bg-[#f4f6fa]'
+							className='w-1/2 border-none bg-[#f4f6fa]'
 						/>
-						<span>-</span>
 						<Input
 							type='number'
 							value={tempRange[1]}
@@ -55,9 +65,8 @@ const FilterPrice = () => {
 							onChange={e =>
 								setTempRange([tempRange[0], Number(e.target.value)])
 							}
-							className='w-16 text-center border-none bg-[#f4f6fa]'
+							className='w-1/2  border-none bg-[#f4f6fa] '
 						/>
-						<span>р.</span>
 					</div>
 
 					<Slider

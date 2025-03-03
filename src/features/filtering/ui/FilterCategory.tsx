@@ -1,7 +1,8 @@
 import { useMedStore } from '@/entities/product/model/useMedStore'
 import useToggle from '@/shared/lib/useToggle'
+import { cn } from '@/shared/lib/utils'
 import { Checkbox } from '@/shared/ui/checkbox'
-import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
+import { ChevronDownIcon } from 'lucide-react'
 import { FC } from 'react'
 import { IFilterCategoryProps } from '../model/types'
 
@@ -24,13 +25,19 @@ const FilterCategory: FC<IFilterCategoryProps> = ({
 	}
 
 	return (
-		<div className='my-4 mx-2'>
+		<div className='my-4 '>
 			<div
 				className='flex justify-between items-center cursor-pointer'
 				onClick={toggle}
 			>
 				<h3 className='font-bold '>{title}</h3>
-				{isOpen ? <ChevronUpIcon size={16} /> : <ChevronDownIcon size={16} />}
+				<ChevronDownIcon
+					size={16}
+					className={cn(
+						'transform transition-transform duration-200 ease-in-out',
+						{ 'rotate-180': isOpen }
+					)}
+				/>
 			</div>
 
 			{isOpen && (

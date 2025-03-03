@@ -15,12 +15,15 @@ const FilterButtons = () => {
 	const { viewMode, setViewMode, setSorting, sorting } = useMedStore()
 
 	return (
-		<section className='flex items-center'>
+		<section className='flex items-start'>
 			<Select value={sorting} onValueChange={setSorting}>
 				<SelectTrigger className='w-[200px]'>
 					<SelectValue placeholder='По релевантности' />
 				</SelectTrigger>
-				<SelectContent className='bg-white p-2 rounded-lg'>
+				<SelectContent
+					position='popper'
+					className='absolute bg-white p-2 rounded-lg top-3 w-[200px] '
+				>
 					<SelectItem value='relevance'>По релевантности</SelectItem>
 					<SelectItem value='asc'>Сначала дешевые</SelectItem>
 					<SelectItem value='desc'>Сначала дорогие</SelectItem>

@@ -1,6 +1,6 @@
 import { IProduct } from '@/shared/types/IProduct'
 
-interface Filters {
+interface IFilters {
 	minPrice: number
 	maxPrice: number
 	selectedBrands: string[]
@@ -9,16 +9,16 @@ interface Filters {
 	selectedQuantityPerPackage: string[]
 }
 
-export interface MedStore {
+export interface IMedStore {
 	allProducts: IProduct[]
 	products: IProduct[]
 	isLoading: boolean
 	error: string | null
 	viewMode: 'grid' | 'list'
 	sorting: string
-	filters: Filters
+	filters: IFilters
 	fetchProducts: () => Promise<void>
-	setFilters: (filters: Partial<Filters>) => void
+	setFilters: (filters: Partial<IFilters>) => void
 	setViewMode: (mode: 'grid' | 'list') => void
 	setSorting: (sortingType: 'relevance' | 'asc' | 'desc') => void
 }

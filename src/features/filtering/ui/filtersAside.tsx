@@ -2,11 +2,12 @@
 
 import { useMedStore } from '@/entities/product/model/useMedStore'
 import { MAX_PRICE, MIN_PRICE } from '@/shared/config/base'
+
 import {
-	brand,
-	dossage,
-	quantityPerPackage,
-	releaseForm,
+	BRAND,
+	DOSSAGE,
+	QUANTITY_PER_PACKAGE,
+	RELEASE_FORM,
 } from '@/shared/config/filters'
 import { Button } from '@/shared/ui/button'
 import { ChevronLeftIcon } from 'lucide-react'
@@ -37,25 +38,25 @@ const FiltersAside = () => {
 			<hr className='text-gray-200' />
 			<FilterCategory
 				title='Бренд'
-				options={brand}
+				options={BRAND}
 				filterKey='selectedBrands'
 			/>
 			<hr className='text-gray-200' />
 			<FilterCategory
 				title='Форма выпуска'
-				options={releaseForm}
+				options={RELEASE_FORM}
 				filterKey='selectedForms'
 			/>
 			<hr className='text-gray-200' />
 			<FilterCategory
 				title='Дозировка'
-				options={dossage}
+				options={DOSSAGE}
 				filterKey='selectedDossage'
 			/>
 			<hr className='text-gray-200' />
 			<FilterCategory
 				title='Количество в упаковке'
-				options={quantityPerPackage}
+				options={QUANTITY_PER_PACKAGE}
 				filterKey='selectedQuantityPerPackage'
 			/>
 

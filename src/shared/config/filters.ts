@@ -1,4 +1,4 @@
-export const brand = [
+export const BRAND = [
 	'Arterium',
 	'Borimed',
 	'Cheplapharm',
@@ -24,7 +24,7 @@ export const brand = [
 	'Фармтехнология',
 ]
 
-export const releaseForm = [
+export const RELEASE_FORM = [
 	'Гранулы для приготовления суспензии для приема внутрь',
 	'Капсулы',
 	'Лиофилизат для приготовления раствора для инъекций и ингаляций',
@@ -42,7 +42,7 @@ export const releaseForm = [
 	'Таблетки с пролонгированным высвобождением',
 ]
 
-export const dossage = [
+export const DOSSAGE = [
 	'0,5 г',
 	'1 г',
 	'3 г',
@@ -72,7 +72,7 @@ export const dossage = [
 	'3000000 МЕ',
 ]
 
-export const quantityPerPackage = [
+export const QUANTITY_PER_PACKAGE = [
 	'1',
 	'2',
 	'3',
