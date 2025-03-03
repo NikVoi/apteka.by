@@ -10,7 +10,15 @@ const GridCard: FC<IItemProps> = ({ product }) => {
 			className='flex flex-col justify-between h-[450px] items-center p-4  bg-[#ffff] rounded-xl hover:cursor-pointer hover:shadow-md duration-200'
 			key={product.id}
 		>
-			<Image src={product.image} alt='medical' width={215} height={215} />
+			<div className='relative'>
+				<Image src={product.image} alt='image' width={215} height={215} />
+
+				{product.characteristics.isByPrescription && (
+					<p className='absolute bottom-2 left-2 text-xs bg-red-200 px-2  rounded-[4px] text-red-400'>
+						По рецепту
+					</p>
+				)}
+			</div>
 
 			<div className='flex flex-col justify-between flex-1'>
 				<p className='font-bold my-2'>{product.price} р.</p>

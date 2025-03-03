@@ -10,7 +10,13 @@ const ListCard: FC<IItemProps> = ({ product }) => {
 			<Image src={product.image} alt='image' width={215} height={215} />
 
 			<div className=' flex-1 px-2 border-r border-solid border-gray-200'>
-				<div className='mb-3'>{product.title}</div>
+				<div className='mb-2'>{product.title}</div>
+
+				{product.characteristics.isByPrescription && (
+					<p className='inline-block text-xs bg-red-200 px-2  rounded-[4px] text-red-400 mb-2'>
+						По рецепту
+					</p>
+				)}
 
 				<p className='text-sm mb-2'>
 					<span className='opacity-50'>Производитель: </span>
