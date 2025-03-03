@@ -22,7 +22,7 @@ const FilterButtons = () => {
 				</SelectTrigger>
 				<SelectContent
 					position='popper'
-					className='absolute bg-white p-2 rounded-lg top-3 w-[200px] '
+					className='absolute bg-white p-2 rounded-lg top-3 w-[200px] z-50 '
 				>
 					<SelectItem value='relevance'>По релевантности</SelectItem>
 					<SelectItem value='asc'>Сначала дешевые</SelectItem>
