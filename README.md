@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏥 Apteka.by
 
-## Getting Started
+Apteka.by — это веб-приложение для поиска и сравнения цен на лекарственные препараты в аптеках Беларуси.
 
-First, run the development server:
+## 🌐 Демо
+[Apteka.by Live Demo](https://github.com/NikVoi/apteka.by)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Функционал
+- **Поиск лекарств** — возможность искать медикаменты по названию или активному веществу.
+- **Сравнение цен** — отображение стоимости препаратов в разных аптеках.
+- **Фильтрация по местоположению** — сортировка аптек по удаленности от пользователя.
+- **Информация о наличии** — актуальные данные о наличии препаратов.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Технологии
+- React.js / Next.js
+- Redux Toolkit / Zustand (для управления состоянием)
+- Tailwind CSS / Styled Components (для стилизации)
+- API интеграция для получения данных о лекарствах
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Что можно улучшить в будущем
+### 🔹 1. Добавление отзывов и рейтингов
+Позволит пользователям оставлять отзывы о аптеках и оценивать их сервис.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🔹 2. Интеграция с картами
+Отображение местоположения аптек на карте для удобства поиска.
 
-## Learn More
+### 🔹 3. Уведомления о поступлении
+Оповещения пользователей о появлении в наличии ранее недоступных препаратов.
 
-To learn more about Next.js, take a look at the following resources:
+### 🔹 4. Личный кабинет
+Возможность сохранения избранных аптек и лекарств для быстрого доступа.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🔹 5. Мобильное приложение
+Разработка мобильной версии для удобства использования на смартфонах.
